@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+@using League.Models
+@{
+    ViewData["Title"] = "NFL Players";
+}
+
+<div class="jumbotron p-2 d-flex justify-content-between">
+    <h1 class="display-3"><img src="~/image/nfl/nfl.png" alt="NFL Shield Logo" /> Players</h1>
+    <form class="d-flex">
+        <div class="form-group pr-2">
+            <label class="col-form-label control-label" asp-for="SelectedTeam">Team:</label>
+            <select class="form-control" asp-for="SelectedTeam" asp-items="Model.AllTeams" onchange="this.form.submit();">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="form-group pr-2">
+            <label class="col-form-label control-label" asp-for="SelectedPosition">Position:</label>
+            <select class="form-control" asp-for="SelectedPosition" asp-items="Model.AllPositions" onchange="this.form.submit();">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div id="playerSearch" class="form-group pr-2">
+            <label asp-for="SearchString" class="col-form-label control-label">
+                Name:
+            </label>
+            <input class="form-control" type="text" asp-for="SearchString" />
+            <input class="btn btn-primary btn-sm mr-auto" type="submit" value="Search" />
+        </div>
+        <div class="form-group pr-2">
+            <label class="col-form-label control-label" asp-for="SortField">Sort by:</label>
+            <select class="form-control" asp-for="SortField" onchange="this.form.submit();">
+                <option value="Number">Number</option>
+                <option value="Name">Name</option>
+                <option value="Position">Position</option>
+            </select>
+        </div>
+    </form>
+</div>
+
+<section class="grid container mt-3">
+    <div class="d-flex bg-header text-white">
+        <div class="p-1" style="flex:0 0 10%">Team</div>
+        <div class="p-1" style="flex:0 0 10%">Number</div>
+        <div class="p-1" style="flex:0 0 25%">Name</div>
+        <div class="p-1" style="flex:0 0 10%">Position</div>
+        <div class="p-1" style="flex:0 0 20%">Experience</div>
+        <div class="p-1" style="flex:0 0 25%">College</div>
+    </div>
+    @foreach (Player player in Model.Players)
+    {
+        <a class="@(Model.PlayerClass(player))" asp-page="./Player" asp-route-id="@player.PlayerId">
+            <div class="p-1" style="flex:0 0 10%">@player.TeamId</div>
+            <div class="p-1" style="flex:0 0 10%">@player.Number</div>
+            <div class="p-1" style="flex:0 0 25%">@player.Name</div>
+            <div class="p-1" style="flex:0 0 10%">@player.Position</div>
+            <div class="p-1" style="flex:0 0 20%">@player.Experience</div>
+            <div class="p-1" style="flex:0 0 25%">@player.College</div>
+        </a>
+    }
+</section>

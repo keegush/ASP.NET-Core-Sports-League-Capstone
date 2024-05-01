@@ -1,0 +1,27 @@
+﻿@page "{id}"
+@model PlayerModel
+@{
+    ViewData["Title"] = "NFL Player - " + @Html.DisplayFor(model => model.Player.Name);
+}
+
+<div class="jumbotron p-2 d-flex justify-content-between">
+    <h1 class="display-4">
+        <img src="~/image/nfl/logo/@(Model.Player.TeamId).png" alt="" />
+        @Html.DisplayFor(model => model.Player.Number)
+        @Html.DisplayFor(model => model.Player.Name)
+    </h1>
+</div>
+<div>@Model.Player.Position</div>
+<hr />
+<div>Rating: @Model.Player.Rating</div>
+<div>Rank: @Model.Player.Rank</div>
+<div>Depth: @Model.Player.Depth</div>
+<hr />
+<div>Experience: @Model.Player.Experience</div>
+<div>College: @Model.Player.College</div>
+<div>Draft: @(Model.Player.DraftYear) - @(Model.Player.DraftRound) - @(Model.Player.DraftPick)</div>
+<hr />
+<div>Height: @Model.Player.Height</div>
+<div>Weight: @Model.Player.Weight</div>
+<div>Age: @Model.Player.Age</div>
+<div>Birthday: @Model.Player.BirthDate.Value.ToShortDateString()</div>

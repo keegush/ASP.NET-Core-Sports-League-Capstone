@@ -1,0 +1,52 @@
+﻿@page "{id}"
+@model TeamModel
+
+@{
+    ViewData["Title"] = "NFL Team - " + @Html.DisplayFor(model => model.Team.Name);
+}
+
+<div class="jumbotron p-2 d-flex justify-content-between">
+    <h1 class="display-4">
+        <img src="~/image/nfl/logo/@(Model.Team.TeamId).png" alt="" /> 
+        @Model.Team.Location
+        @Model.Team.Name
+    </h1>
+</div>
+<div class="d-flex justify-content-between">
+    <div>
+        <div>
+            <div>@(Model.Team.Division.ConferenceId) - @(Model.Team.Division.DivisionId)</div>
+            <div>Record: @(Model.Team.Win)-@(Model.Team.Loss)-@(Model.Team.Tie)</div>
+            <hr />
+            <div>@(Model.Team.Stadium) Stadium</div>
+            <div>Capacity: @(Model.Team.Capacity)</div>
+            <hr />
+            <div>@(Model.Team.Address)</div>
+            <div>@(Model.Team.City), @(Model.Team.State) @(Model.Team.Zip)</div>
+            <img class="mt-2" src="~/image/nfl/stadium/@(Model.Team.TeamId).jpg" />
+        </div>
+    </div>
+    <img src="~/image/nfl/seating/@(Model.Team.TeamId).png" />
+</div>
+<section class="grid container mt-3">
+    <div class="d-flex bg-header">
+        <div class="p-1" style="flex:0 0 10%">Number</div>
+        <div class="p-1" style="flex:0 0 25%">Name</div>
+        <div class="p-1" style="flex:0 0 10%">Position</div>
+        <div class="p-1" style="flex:0 0 20%">Experience</div>
+        <div class="p-1" style="flex:0 0 25%">College</div>
+        <div class="p-1" style="flex:0 0 10%">Depth</div>
+    </div>
+    @foreach(Player player in Model.Team.Players)
+    {
+        <a class="@(player.Depth == 1 ? "d-flex starter" : "d-flex") " asp-page="/Players/Player" asp-route-id="@player.PlayerId">
+            <div class="p-1" style="flex:0 0 10%">@player.Number</div>
+            <div class="p-1" style="flex:0 0 25%">@player.Name</div>
+            <div class="p-1" style="flex:0 0 10%">@player.Position</div>
+            <div class="p-1" style="flex:0 0 20%">@player.Experience</div>
+            <div class="p-1" style="flex:0 0 25%">@player.College</div>
+            <div class="p-1" style="flex:0 0 10%">@player.Depth</div>
+        </a>
+    }
+</section>
+
